@@ -2,7 +2,7 @@ version: 2.1
 
 executors:
   node-executor:
-    working_directory: ~/vendor-contract-mgmt-client
+    working_directory: ~/vendor-contract-mgmt-service
     docker:
       - image: cimg/node:17.2.0
 
