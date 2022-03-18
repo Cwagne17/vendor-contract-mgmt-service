@@ -11,6 +11,7 @@ jobs:
     executor: node-executor
     steps:
       - checkout
+      - command: npm install
       - run:
           name: ESLint Project
           command: npm run lint
@@ -23,6 +24,7 @@ jobs:
     executor: node-executor
     steps:
       - checkout
+      - command: npm install
       - run:
           name: Test Project
           command: npm run test
