@@ -10,7 +10,7 @@ async function bootstrap() {
     const document = SwaggerModule.createDocument(app, configService.getSwaggerConfig())
     SwaggerModule.setup('docs', app, document);
   }
-  app.use(helmet())
+  app.use(helmet());
   await app.listen(configService.getPort());
 }
 bootstrap();
