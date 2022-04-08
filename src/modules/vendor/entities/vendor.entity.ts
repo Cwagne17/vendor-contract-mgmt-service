@@ -1,6 +1,5 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 import { IsEmail, Length } from "class-validator";
-import { WorkType } from "src/modules/work-type/entities/work-type.entity";
 
 export enum StatusTypes {
     IN_CONTRACT = "in contract",
@@ -45,7 +44,7 @@ export class Vendor {
     @Column({ type: "text" })
     memo: string
 
-    @ManyToOne((type) => WorkType, (worktype) => worktype.id)
-    work_id: string
+    @Column({ type: "uuid" })
+    worktype: string
 
 }

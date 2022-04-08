@@ -1,5 +1,6 @@
 import { DocumentBuilder } from '@nestjs/swagger';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { join } from 'path';
 
 require('dotenv').config();
 
@@ -61,7 +62,7 @@ export class ConfigService {
       password: this.getValue('POSTGRES_PASSWORD'),
       database: this.getValue('POSTGRES_DATABASE'),
 
-      entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+      entities: [join(__dirname, '..', '**', '*.entity.{ts,js}'), join("dist/**/*.entity.js")],
 
       migrationsTableName: 'migration',
 

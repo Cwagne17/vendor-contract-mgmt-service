@@ -1,5 +1,4 @@
-import { Vendor } from "src/modules/vendor/entities/vendor.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, Timestamp } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: 'contract'})
 export class Contract {
@@ -21,7 +20,7 @@ export class Contract {
     @Column({ type: "text" })
     condition: string
 
-    @ManyToOne((type) => Vendor, (vendor) => vendor.id)
+    @Column({ type: "uuid" })
     vendor_id: string
 
 }

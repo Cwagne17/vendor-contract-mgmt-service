@@ -1,5 +1,4 @@
-import { Contract } from "src/modules/contract/entities/contract.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, Timestamp } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: "payment-info"})
 export class PaymentInfo {
@@ -19,7 +18,7 @@ export class PaymentInfo {
     @Column({ type: "text" })
     memo: string
 
-    @ManyToOne((type) => Contract, (contract) => contract.id)
+    @Column({ type: "uuid" })
     contract_id: string
     
 }

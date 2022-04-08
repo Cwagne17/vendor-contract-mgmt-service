@@ -1,15 +1,20 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateVendorDto } from './dto/create-vendor.dto';
 import { UpdateVendorDto } from './dto/update-vendor.dto';
+import { Vendor } from './entities/vendor.entity';
 
 @Injectable()
 export class VendorService {
+  constructor(@InjectRepository(Vendor) private readonly vendorRepo: Repository<Vendor>) {}
+
   createVendor(createVendorDto: CreateVendorDto) {
     return 'This action adds a new vendor';
   }
 
   findAllVendors() {
-    return `This action returns all vendor`;
+    return this.vendorRepo.find();
   }
 
   findOneVendor(id: number) {

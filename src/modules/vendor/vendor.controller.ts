@@ -14,8 +14,7 @@ export class VendorController {
 
   @Get("/anotherone")
   findAll() {
-    return "you did it"
-    // return this.vendorService.findAll();
+    return this.vendorService.findAllVendors();
   }
 
   @Get(':id')
