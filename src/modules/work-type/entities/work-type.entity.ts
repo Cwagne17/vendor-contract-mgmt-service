@@ -1,3 +1,4 @@
+import { IsDefined, IsString, Length } from "class-validator";
 import { Vendor } from "src/modules/vendor/entities/vendor.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
@@ -8,6 +9,9 @@ export class WorkType {
     id: string
 
     @Column({ type: "varchar", length: 45, unique: true })
+    @IsString()
+    @IsDefined()
+    @Length(0, 45)
     type: string
 
 }
