@@ -1,5 +1,6 @@
-import { IsDate, IsDefined, IsInt, IsNotEmpty, IsOptional, IsPositive, IsString, IsUUID, Max, Min } from "class-validator";
+import { IsDate, IsDefined, IsInt, IsPositive, IsString, IsUUID } from "class-validator";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { IPostgresInterval } from 'postgres-interval';
 
 @Entity({name: 'contract'})
 export class Contract {
@@ -17,10 +18,10 @@ export class Contract {
     @IsDefined()
     contract_date: Date
 
-    @Column({ type: "date" })
+    @Column({ type: "interval" })
     @IsDate()
     @IsDefined()
-    end_date: Date
+    duration: IPostgresInterval
 
     @Column({ type: "text", default: "" })
     @IsString()
