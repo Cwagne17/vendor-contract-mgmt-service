@@ -3,7 +3,7 @@ set -e
 
 SERVER="dev-postgres";
 PW="admin";
-DB="my_database";
+DB="vcms-db";
 
 echo "echo stop & remove old docker [$SERVER] and starting new fresh instance of [$SERVER]"
 (docker kill $SERVER || :) && \

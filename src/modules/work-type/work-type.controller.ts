@@ -3,32 +3,27 @@ import { WorkTypeService } from './work-type.service';
 import { CreateWorkTypeDto } from './dto/create-work-type.dto';
 import { UpdateWorkTypeDto } from './dto/update-work-type.dto';
 
-@Controller('work-type')
+@Controller()
 export class WorkTypeController {
   constructor(private readonly workTypeService: WorkTypeService) {}
 
-  @Post()
-  create(@Body() createWorkTypeDto: CreateWorkTypeDto) {
-    return this.workTypeService.create(createWorkTypeDto);
+  @Get('/work-type')
+  getWorkTypes() {
+    return "not yet impletmented";
   }
 
-  @Get()
-  findAll() {
-    return this.workTypeService.findAll();
+  @Post('/work-type')
+  createWorkType() {
+    return "not yet implemented";
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.workTypeService.findOne(+id);
+  @Patch('/work-type/:workId')
+  updateWorkType(@Param('workId') workId: string, @Body() updateWorkTypeDto: UpdateWorkTypeDto) {
+    return {workId,updateWorkTypeDto};
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateWorkTypeDto: UpdateWorkTypeDto) {
-    return this.workTypeService.update(+id, updateWorkTypeDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.workTypeService.remove(+id);
+  @Delete('/work-type/:workId')
+  deleteWorkType(@Param('workId') workId: string) {
+    return workId;
   }
 }

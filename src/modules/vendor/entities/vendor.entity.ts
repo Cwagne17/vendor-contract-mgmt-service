@@ -8,7 +8,7 @@ export enum StatusTypes {
     HAS_ISSUES = "has issues"
 }
 
-export const PhoneRegexp = new RegExp('^\(?\d{3}\)?[\s-]\d{3}[\s-]\d{4}$');
+//export const PhoneRegexp = new RegExp('^\(?\d{3}\)?[\s-]\d{3}[\s-]\d{4}$');
 
 @Entity({name: "vendor"})
 export class Vendor {
@@ -46,7 +46,7 @@ export class Vendor {
     @Column({ type: "varchar", length: 12 })
     @IsString()
     @Length(0, 14)
-    @Matches(PhoneRegexp)
+    //@Matches(PhoneRegexp)
     @IsDefined()
     contact_phone_number: string
 
