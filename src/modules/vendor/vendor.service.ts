@@ -1,6 +1,6 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { ILike, In, Repository } from 'typeorm';
 import { CreateVendorDto } from './dto/create-vendor.dto';
 import { SearchVendorsDto } from './dto/search-vendors.dto';
 import { UpdateVendorDto } from './dto/update-vendor.dto';
@@ -11,24 +11,31 @@ export class VendorService {
   constructor(@InjectRepository(Vendor) private readonly vendorRepo: Repository<Vendor>) {}
 
   async createVendor(createVendorDto: CreateVendorDto): Promise<void> {
-    await this.vendorRepo.save(createVendorDto);
+    await this.vendorRepo.create(createVendorDto);
   }
 
   async searchVendors(query: SearchVendorsDto): Promise<Vendor[]> {
-    const vendors: Vendor[] = await this.vendorRepo.find();
-    return vendors;
+    return await this.vendorRepo.find({
+      where: {
+        vendor_name: ILike(query.text),
+        status: In(query.status),
+        type: In(query.work_type)
+      },
+      order: {
+        vendor_name: query.sort,
+      }
+    });
   }
 
 
   async findVendorByName(vendor_name: string): Promise<Vendor> {
-    const vendor: Vendor[] = await this.vendorRepo.find({
+    return await this.vendorRepo.findOne({
       where: { vendor_name: vendor_name }
     });
-    return vendor[0]
   }
 
   async updateVendor(id: string, updateVendorDto: UpdateVendorDto): Promise<void> {
-    console.log(`update vendor ${id}, with ${updateVendorDto}`);
+    await this.vendorRepo.update(id, updateVendorDto);
   }
 
 }

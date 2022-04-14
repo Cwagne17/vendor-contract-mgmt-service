@@ -10,5 +10,8 @@ export class SearchVendorsDto {
 
     @IsEnum(StatusTypes)
     status: string[]
+
+    @IsEnum(["ASC", "DESC"])
+    sort: "ASC" | "DESC"
     
 }
