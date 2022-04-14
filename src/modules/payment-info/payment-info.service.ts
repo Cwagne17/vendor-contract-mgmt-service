@@ -4,7 +4,7 @@ import { UpdatePaymentInfoDto } from './dto/update-payment-info.dto';
 
 @Injectable()
 export class PaymentInfoService {
-  create(createPaymentInfoDto: CreatePaymentInfoDto) {
+  create() {
     return 'This action adds a new paymentInfo';
   }
 
@@ -16,7 +16,7 @@ export class PaymentInfoService {
     return `This action returns a #${id} paymentInfo`;
   }
 
-  update(id: number, updatePaymentInfoDto: UpdatePaymentInfoDto) {
+  update(id: number) {
     return `This action updates a #${id} paymentInfo`;
   }
 

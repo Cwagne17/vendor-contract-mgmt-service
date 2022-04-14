@@ -1,6 +1,5 @@
 import { IsDefined, IsString, Length } from "class-validator";
-import { Vendor } from "src/modules/vendor/entities/vendor.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity({name: "work-type"})
 export class WorkType {

@@ -1,8 +1,7 @@
 import { DocumentBuilder } from '@nestjs/swagger';
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { join } from 'path';
-
-require('dotenv').config();
+import "dotenv/config";
 
 export class ConfigService {
 

@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { CreateWorkTypeDto } from './dto/create-work-type.dto';
-import { UpdateWorkTypeDto } from './dto/update-work-type.dto';
 
 @Injectable()
 export class WorkTypeService {
-  create(createWorkTypeDto: CreateWorkTypeDto) {
+  create() {
     return 'This action adds a new workType';
   }
 
@@ -16,7 +14,7 @@ export class WorkTypeService {
     return `This action returns a #${id} workType`;
   }
 
-  update(id: number, updateWorkTypeDto: UpdateWorkTypeDto) {
+  update(id: string) {
     return `This action updates a #${id} workType`;
   }
 
