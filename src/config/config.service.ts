@@ -80,7 +80,7 @@ export class ConfigService {
   public getSwaggerConfig() {
     return new DocumentBuilder().setTitle('Church of Phillippi VCMS API')
       .setDescription('The documentation for the Church of Phillippi Vendor and Contract Management System')
-      .setVersion(require('../../package.json').version)
+      .setVersion(require('../../package.json').version) // eslint-disable-line
       .build();
   }
 

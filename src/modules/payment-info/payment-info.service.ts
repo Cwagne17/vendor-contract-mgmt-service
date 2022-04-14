@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePaymentInfoDto } from './dto/create-payment-info.dto';
-import { UpdatePaymentInfoDto } from './dto/update-payment-info.dto';
 
 @Injectable()
 export class PaymentInfoService {
