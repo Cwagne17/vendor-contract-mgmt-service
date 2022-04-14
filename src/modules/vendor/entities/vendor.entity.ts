@@ -8,7 +8,7 @@ export enum StatusTypes {
     HAS_ISSUES = "has issues"
 }
 
-export const PhoneRegexp = new RegExp('^\(?\d{3}\)?[\s-]\d{3}[\s-]\d{4}$');
+export const PhoneRegexp = new RegExp(/\(?\d{3}\)?[\s-]\d{3}[\s-]\d{4}/);
 
 @Entity({name: "vendor"})
 export class Vendor {
