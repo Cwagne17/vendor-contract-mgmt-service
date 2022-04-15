@@ -1,3 +1,4 @@
+import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
@@ -11,6 +12,9 @@ async function bootstrap() {
     SwaggerModule.setup('docs', app, document);
   }
   app.use(helmet());
+  app.useGlobalPipes(new ValidationPipe({ 
+    whitelist: true 
+  }));
   await app.listen(configService.getPort());
 }
 bootstrap();

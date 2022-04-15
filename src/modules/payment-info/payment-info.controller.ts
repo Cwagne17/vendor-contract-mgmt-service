@@ -9,7 +9,7 @@ export class PaymentInfoController {
 
   @Post()
   create(@Body() createPaymentInfoDto: CreatePaymentInfoDto) {
-    return this.paymentInfoService.create(createPaymentInfoDto);
+    return this.paymentInfoService.create();
   }
 
   @Get()
@@ -24,7 +24,7 @@ export class PaymentInfoController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePaymentInfoDto: UpdatePaymentInfoDto) {
-    return this.paymentInfoService.update(+id, updatePaymentInfoDto);
+    return this.paymentInfoService.update(+id);
   }
 
   @Delete(':id')

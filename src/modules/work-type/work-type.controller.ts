@@ -9,7 +9,7 @@ export class WorkTypeController {
 
   @Post()
   create(@Body() createWorkTypeDto: CreateWorkTypeDto) {
-    return this.workTypeService.create(createWorkTypeDto);
+    return this.workTypeService.create();
   }
 
   @Get()
@@ -24,7 +24,7 @@ export class WorkTypeController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateWorkTypeDto: UpdateWorkTypeDto) {
-    return this.workTypeService.update(+id, updateWorkTypeDto);
+    return this.workTypeService.update(id);
   }
 
   @Delete(':id')

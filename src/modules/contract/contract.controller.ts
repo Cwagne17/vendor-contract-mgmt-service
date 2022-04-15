@@ -9,7 +9,7 @@ export class ContractController {
 
   @Post()
   create(@Body() createContractDto: CreateContractDto) {
-    return this.contractService.create(createContractDto);
+    return this.contractService.create();
   }
 
   @Get()
@@ -24,7 +24,7 @@ export class ContractController {
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateContractDto: UpdateContractDto) {
-    return this.contractService.update(+id, updateContractDto);
+    return this.contractService.update(+id);
   }
 
   @Delete(':id')
