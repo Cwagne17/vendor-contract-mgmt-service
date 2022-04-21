@@ -8,7 +8,7 @@ export class ContractController {
   constructor(private readonly contractService: ContractService) {}
 
   @Post()
-  create(@Body() createContractDto: CreateContractDto) {
+  create() {
     return this.contractService.create();
   }
 
@@ -23,7 +23,7 @@ export class ContractController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateContractDto: UpdateContractDto) {
+  update(@Param('id') id: string) {
     return this.contractService.update(+id);
   }
 

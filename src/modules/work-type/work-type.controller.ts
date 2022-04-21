@@ -8,7 +8,7 @@ export class WorkTypeController {
   constructor(private readonly workTypeService: WorkTypeService) {}
 
   @Post()
-  create(@Body() createWorkTypeDto: CreateWorkTypeDto) {
+  create() {
     return this.workTypeService.create();
   }
 
@@ -23,7 +23,7 @@ export class WorkTypeController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateWorkTypeDto: UpdateWorkTypeDto) {
+  update(@Param('id') id: string) {
     return this.workTypeService.update(id);
   }
 

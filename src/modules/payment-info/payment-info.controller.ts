@@ -8,7 +8,7 @@ export class PaymentInfoController {
   constructor(private readonly paymentInfoService: PaymentInfoService) {}
 
   @Post()
-  create(@Body() createPaymentInfoDto: CreatePaymentInfoDto) {
+  create() {
     return this.paymentInfoService.create();
   }
 
@@ -23,7 +23,7 @@ export class PaymentInfoController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePaymentInfoDto: UpdatePaymentInfoDto) {
+  update(@Param('id') id: string) {
     return this.paymentInfoService.update(+id);
   }
 
