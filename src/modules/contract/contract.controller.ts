@@ -1,34 +1,38 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ContractService } from './contract.service';
 import { CreateContractDto } from './dto/create-contract.dto';
+import { SearchContractDto } from './dto/search-contract.dto';
 import { UpdateContractDto } from './dto/update-contract.dto';
+import { Contract } from './entities/contract.entity';
+import { IContractController } from './interfaces/icontract.controller';
 
-@Controller('contract')
-export class ContractController {
+@Controller()
+export class ContractController implements IContractController {
   constructor(private readonly contractService: ContractService) {}
-
-  @Post()
-  create() {
-    return this.contractService.create();
+  
+  @Post("/vendor/:vendorId/contract")
+  async createContract(@Param("vendorId") vendorId: string, @Body() createContractDto: CreateContractDto): Promise<void> {
+    await this.contractService.createContract(vendorId, createContractDto);
   }
 
-  @Get()
-  findAll() {
-    return this.contractService.findAll();
+  @Get("/contracts")
+  async searchContracts(@Query() query: SearchContractDto): Promise<Contract[]> {
+    return await this.contractService.searchContracts(query);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.contractService.findOne(+id);
+  @Patch("/vendor/:vendorId/contract/:contractId")
+  async updateContract(@Param("vendorId") vendorId: string, @Param("contractId") id: string, @Body() updateContractDto: UpdateContractDto): Promise<void> {
+    await this.contractService.updateContract(vendorId, id, updateContractDto);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string) {
-    return this.contractService.update(+id);
+  @Delete("/vendor/:vendorId/contract/:contractId")
+  async deleteContract(@Param("vendorId") vendorId: string, @Param("contractId") id: string): Promise<void> {
+    await this.contractService.deleteContract(vendorId, id);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.contractService.remove(+id);
+  @Get("/vendor/:vendorId/contract/:contractId/download")
+  async downloadContract(@Param("vendorId") vendorId: string, @Param("contractId") id: string): Promise<void> {
+    await this.contractService.downloadContract(vendorId, id);
   }
+
 }

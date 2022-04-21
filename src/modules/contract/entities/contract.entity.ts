@@ -37,4 +37,10 @@ export class Contract {
     @IsDefined()
     vendor_id: string
 
+    @Column({ type: "uuid" })
+    @IsDefined()
+    @IsUUID()
+    @IsString()
+    work_id: string
+
 }

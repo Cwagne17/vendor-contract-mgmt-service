@@ -4,7 +4,7 @@ import { ILike, In, Repository } from 'typeorm';
 import { CreateVendorDto } from './dto/create-vendor.dto';
 import { SearchVendorsDto } from './dto/search-vendors.dto';
 import { UpdateVendorDto } from './dto/update-vendor.dto';
-import { Vendor } from './entities/vendor.entity';
+import { StatusTypes, Vendor } from './entities/vendor.entity';
 import { IVendorService } from './interfaces/ivendor.service';
 
 @Injectable()
@@ -32,6 +32,13 @@ export class VendorService implements IVendorService {
     });
   }
 
+  async updateVendor(id: string, updateVendorDto: UpdateVendorDto): Promise<void> {
+    const vendor = await this.findVendorById(id);
+    if (!vendor) {
+      throw new NotFoundException(`Not Found, the vendor with the id ${id}, does not exist.`);
+    }
+    await this.vendorRepo.update(id, updateVendorDto);
+  }
 
   async findVendorByName(vendor_name: string): Promise<Vendor> {
     return await this.vendorRepo.findOne({
@@ -45,12 +52,12 @@ export class VendorService implements IVendorService {
     });
   }
 
-  async updateVendor(id: string, updateVendorDto: UpdateVendorDto): Promise<void> {
-    const vendor = await this.findVendorById(id);
+  async updateVendorStatus(id: string, status: StatusTypes): Promise<void> {
+    const vendor = await this.findVendorById(id); 
     if (!vendor) {
       throw new NotFoundException(`Not Found, the vendor with the id ${id}, does not exist.`);
     }
-    await this.vendorRepo.update(id, updateVendorDto);
+    await this.vendorRepo.update(id, { status: status });
   }
 
 }
