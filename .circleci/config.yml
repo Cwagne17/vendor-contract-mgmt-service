@@ -19,27 +19,11 @@ jobs:
       - run:
           name: Prettier
           command: npm run format
-      
-  
-  test-project:
-    executor: node-executor
-    steps:
-      - checkout
-      - run: 
-          command: npm install
-      - run:
-          name: Test Project
-          command: npm run test
 
 workflows:
   test-lint-project:
     jobs:
       - lint-project:
-          filters:
-            branches:
-              ignore:
-                - /main/
-      - test-project:
           filters:
             branches:
               ignore:
