@@ -1,5 +1,4 @@
-import { IsDate, IsDateString, IsDefined, IsInt, IsNotEmpty, IsOptional, IsPositive, IsString, IsUUID } from "class-validator"
-import { IPostgresInterval } from "postgres-interval"
+import { IsDateString, IsDefined, IsInt, IsNotEmpty, IsOptional, IsPositive, IsString } from "class-validator"
 
 export class CreateContractDto {
 

@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { ContractService } from './contract.service';
 import { CreateContractDto } from './dto/create-contract.dto';
-import { SearchContractDto } from './dto/search-contract.dto';
+import { SearchContractsDto } from './dto/search-contract.dto';
 import { UpdateContractDto } from './dto/update-contract.dto';
 import { Contract } from './entities/contract.entity';
 import { IContractController } from './interfaces/icontract.controller';
@@ -18,7 +18,7 @@ export class ContractController implements IContractController {
 
   @Get("/contracts")
   async searchContracts(@Query() query): Promise<Contract[]> {
-    return await this.contractService.searchContracts(query);
+    return await this.contractService.searchContracts(new SearchContractsDto(query));
   }
 
   @Patch("/vendor/:vendorId/contract/:contractId")

@@ -32,15 +32,15 @@ export class VendorService implements IVendorService {
   }
 
   async searchVendors(query: SearchVendorsDto): Promise<Vendor[]> {
-    const status = query.status ? { status: In(query.status) } : {};
-    const workType = query.work_type ? { workType: { type: In(query.work_type) } } : {};
+    const statusQuery = query.status ? { status: In(query.status) } : {};
+    const workTypeQuery = query.work_type ? { workType: { type: In(query.work_type) } } : {};
 
     return await this.vendorRepo.find({
       relations: ["workType"],
       where: {
         vendor_name: Like(`%${query.text}%`),
-        ...status,
-        ...workType
+        ...statusQuery,
+        ...workTypeQuery
       },
       order: {
         vendor_name: query.sort,
@@ -58,12 +58,14 @@ export class VendorService implements IVendorService {
 
   async findVendorByName(vendor_name: string): Promise<Vendor> {
     return await this.vendorRepo.findOne({
+      relations: ["workType"],
       where: { vendor_name: vendor_name }
     });
   }
 
   async findVendorById(id: string): Promise<Vendor> {
     return await this.vendorRepo.findOne({
+      relations: ["workType"],
       where: { id: id }
     });
   }

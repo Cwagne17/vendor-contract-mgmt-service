@@ -1,10 +1,10 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ILike, In, Repository } from 'typeorm';
+import { ILike, In, Like, Repository } from 'typeorm';
 import { StatusTypes } from '../vendor/entities/vendor.entity';
 import { VendorService } from '../vendor/vendor.service';
 import { CreateContractDto } from './dto/create-contract.dto';
-import { SearchContractDto } from './dto/search-contract.dto';
+import { SearchContractsDto } from './dto/search-contract.dto';
 import { UpdateContractDto } from './dto/update-contract.dto';
 import { Contract } from './entities/contract.entity';
 import { IContractService } from './interfaces/icontract.service';
@@ -31,7 +31,9 @@ export class ContractService implements IContractService{
     if (createContractDto.contract_end_date < createContractDto.contract_date) {
       throw new BadRequestException(`Bad Request, the contract end date must be after the start date.`);
     }
-    console.log(createContractDto);
+    if (!vendor.workType) {
+      throw new InternalServerErrorException(`Relational Issue, Work Type was not returned with the vendor, contact an IT admin.`);
+    }
     const contract_entity = await this.contractRepo.create({ 
       ...createContractDto,
       vendor: vendor,
@@ -41,13 +43,16 @@ export class ContractService implements IContractService{
     await this.vendorService.updateVendorStatus(vendorId, StatusTypes.IN_CONTRACT);
   }
   
-  // This function is broken
-  // Needs to join the contract table with the vendor and work type table
-  async searchContracts(query: SearchContractDto): Promise<Contract[]> {
+  async searchContracts(query: SearchContractsDto): Promise<Contract[]> {
+    const workTypeQuery = query.work_type ? { workType: { type: In(query.work_type) } } : {};
+
     return await this.contractRepo.find({
+      relations: ["vendor", "workType"],
       where: {
-        vendor_name: ILike(query.text),
-        type: In(query.work_type)
+        vendor: {
+          vendor_name: Like(`%${query.text}%`)
+        },
+        ...workTypeQuery
       },
       order: {
         contract_date: query.sort,
@@ -77,7 +82,7 @@ export class ContractService implements IContractService{
 
   async findVendorContractByDate(vendorId: string, date: Date): Promise<Contract> {
     return await this.contractRepo.findOne({
-      relations: ["vendor"],
+      relations: ["vendor", "workType"],
       where: { 
         contract_date: date,
         vendor: {

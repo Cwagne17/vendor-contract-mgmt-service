@@ -1,14 +1,20 @@
-import { IsEnum, IsString, IsUUID } from "class-validator"
+export class SearchContractsDto {
 
-export class SearchContractDto {
+    text: string = '';
 
-    @IsString()
-    text: string
+    work_type: string[];
 
-    @IsUUID(4, { each: true })
-    work_type: string[]
-
-    @IsEnum(["ASC", "DESC"])
-    sort: "ASC" | "DESC"
+    sort: "ASC" | "DESC" | -1 | 1 = "ASC";
     
+    constructor(query: any) {
+        if (query.text) {
+            this.text = query.text;
+        }
+        if (query.work_type) {
+            this.work_type = query.work_type.split();
+        }
+        if (query.sort && ["ASC", "DESC", -1, 1].includes(query.sort)) {
+            this.sort = query.sort;
+        }
+    }
 }
