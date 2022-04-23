@@ -1,5 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
-import { IsDefined, IsEmail, IsEnum, IsOptional, IsString, IsUUID, Length, Matches } from "class-validator";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { WorkType } from "../../work-type/entities/work-type.entity";
 
 export enum StatusTypes {
     IN_CONTRACT = "in contract",
@@ -17,54 +17,30 @@ export class Vendor {
     id: string
 
     @Column({ type: "varchar", length: 45, unique: true })
-    @IsString()
-    @Length(0, 45)
-    @IsDefined()
     vendor_name: string
 
     @Column({ type: "varchar", length: 45 })
-    @IsString()
-    @Length(0, 45)
-    @IsDefined()
     first_name: string
 
     @Column({ type: "varchar", length: 45})
-    @IsString()
-    @Length(0, 45)
-    @IsDefined()
     last_name: string
 
     @Column({ type: "text" })
-    @IsString()
-    @IsDefined()
     selection_method: string
 
     @Column({ type: "enum", enum: StatusTypes, nullable: true})
-    @IsEnum(StatusTypes)
     status: string
 
     @Column({ type: "varchar", length: 12 })
-    @IsString()
-    @Length(0, 14)
-    @Matches(PhoneRegexp)
-    @IsDefined()
     contact_phone_number: string
 
     @Column({ type: "text" })
-    @IsEmail()
-    @IsString()
-    @IsDefined()
     contact_email: string
 
     @Column({ type: "text" })
-    @IsString()
-    @IsOptional()
     memo: string
 
-    @Column({ type: "uuid" })
-    @IsDefined()
-    @IsUUID()
-    @IsString()
-    work_id: string
+    @ManyToOne(() => WorkType, (workType: WorkType) => workType.type)
+    workType: WorkType
 
 }

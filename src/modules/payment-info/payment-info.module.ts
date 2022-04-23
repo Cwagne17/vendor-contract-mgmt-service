@@ -5,7 +5,9 @@ import { PaymentInfo } from './entities/payment-info.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([PaymentInfo])],
+  imports: [
+    TypeOrmModule.forFeature([PaymentInfo])
+  ],
   controllers: [PaymentInfoController],
   providers: [PaymentInfoService]
 })

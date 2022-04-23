@@ -12,11 +12,12 @@ export class ContractController implements IContractController {
   
   @Post("/vendor/:vendorId/contract")
   async createContract(@Param("vendorId") vendorId: string, @Body() createContractDto: CreateContractDto): Promise<void> {
+    console.log(vendorId, createContractDto);
     await this.contractService.createContract(vendorId, createContractDto);
   }
 
   @Get("/contracts")
-  async searchContracts(@Query() query: SearchContractDto): Promise<Contract[]> {
+  async searchContracts(@Query() query): Promise<Contract[]> {
     return await this.contractService.searchContracts(query);
   }
 

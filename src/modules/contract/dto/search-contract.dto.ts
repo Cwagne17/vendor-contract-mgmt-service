@@ -1,7 +1,8 @@
-import { IsEnum, IsUUID } from "class-validator"
+import { IsEnum, IsString, IsUUID } from "class-validator"
 
 export class SearchContractDto {
 
+    @IsString()
     text: string
 
     @IsUUID(4, { each: true })

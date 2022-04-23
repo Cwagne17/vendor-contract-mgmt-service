@@ -28,7 +28,16 @@ export class ContractService implements IContractService{
     if (contract) {
       throw new BadRequestException(`Bad Request, the Vendor has a contract already for the date ${createContractDto.contract_date}.`);
     }
-    await this.contractRepo.create({ ...createContractDto, work_id: vendor.work_id });
+    if (createContractDto.contract_end_date < createContractDto.contract_date) {
+      throw new BadRequestException(`Bad Request, the contract end date must be after the start date.`);
+    }
+    console.log(createContractDto);
+    const contract_entity = await this.contractRepo.create({ 
+      ...createContractDto,
+      vendor: vendor,
+      workType: vendor.workType 
+    });
+    await this.contractRepo.save(contract_entity);
     await this.vendorService.updateVendorStatus(vendorId, StatusTypes.IN_CONTRACT);
   }
   
@@ -68,9 +77,12 @@ export class ContractService implements IContractService{
 
   async findVendorContractByDate(vendorId: string, date: Date): Promise<Contract> {
     return await this.contractRepo.findOne({
+      relations: ["vendor"],
       where: { 
-        vendor_id: vendorId, 
-        contract_date: date
+        contract_date: date,
+        vendor: {
+          id: vendorId
+        }
       }
     });
   }

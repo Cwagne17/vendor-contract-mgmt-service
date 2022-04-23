@@ -1,4 +1,4 @@
-import { IsDate, IsDefined, IsInt, IsPositive, IsString, IsUUID } from "class-validator"
+import { IsDate, IsDateString, IsDefined, IsInt, IsNotEmpty, IsOptional, IsPositive, IsString, IsUUID } from "class-validator"
 import { IPostgresInterval } from "postgres-interval"
 
 export class CreateContractDto {
@@ -8,23 +8,22 @@ export class CreateContractDto {
     @IsDefined()
     amount: number
 
-    @IsDate()
+    @IsDateString()
     @IsDefined()
     contract_date: Date
 
-    @IsDate()
+    @IsDateString()
     @IsDefined()
-    duration: IPostgresInterval
+    contract_end_date: Date
 
     @IsString()
+    @IsNotEmpty()
+    @IsOptional()
     memo: string
 
     @IsString()
+    @IsNotEmpty()
+    @IsOptional()
     condition: string
-
-    @IsString()
-    @IsUUID()
-    @IsDefined()
-    vendor_id: string
     
 }

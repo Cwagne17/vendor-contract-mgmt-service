@@ -5,8 +5,11 @@ import { WorkType } from './entities/work-type.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([WorkType])],
+  imports: [
+    TypeOrmModule.forFeature([WorkType])
+  ],
   controllers: [WorkTypeController],
-  providers: [WorkTypeService]
+  providers: [WorkTypeService],
+  exports: [WorkTypeService]
 })
 export class WorkTypeModule {}

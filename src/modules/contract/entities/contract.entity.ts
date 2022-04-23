@@ -1,6 +1,7 @@
-import { IsDate, IsDefined, IsInt, IsPositive, IsString, IsUUID } from "class-validator";
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { IPostgresInterval } from 'postgres-interval';
+import { WorkType } from "../../work-type/entities/work-type.entity";
+import { Vendor } from "../../vendor/entities/vendor.entity";
 
 @Entity({name: 'contract'})
 export class Contract {
@@ -8,39 +9,24 @@ export class Contract {
     id: string
 
     @Column({ type: "int" })
-    @IsInt()
-    @IsPositive()
-    @IsDefined()
     amount: number
 
     @Column({ type: "date" })
-    @IsDate()
-    @IsDefined()
     contract_date: Date
 
-    @Column({ type: "interval" })
-    @IsDate()
-    @IsDefined()
-    duration: IPostgresInterval
+    @Column({ type: "date" })
+    contract_end_date: Date
 
     @Column({ type: "text", default: "" })
-    @IsString()
     memo: string
 
     @Column({ type: "text", default: "" })
-    @IsString()
     condition: string
 
-    @Column({ type: "uuid" })
-    @IsString()
-    @IsUUID()
-    @IsDefined()
-    vendor_id: string
+    @ManyToOne(() => Vendor, (vendor: Vendor) => vendor)
+    vendor: Vendor
 
-    @Column({ type: "uuid" })
-    @IsDefined()
-    @IsUUID()
-    @IsString()
-    work_id: string
+    @ManyToOne(() => WorkType, (workType: WorkType) => workType.type)
+    workType: WorkType
 
 }

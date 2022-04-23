@@ -1,17 +1,34 @@
-import { IsEnum, IsUUID } from "class-validator"
+import { BadRequestException } from "@nestjs/common"
 import { StatusTypes } from "../entities/vendor.entity"
 
 export class SearchVendorsDto {
 
-    text: string
+    text: string = '';
+    
+    work_type: string[];
 
-    @IsUUID(4, { each: true })
-    work_type: string[]
+    status: string[];
 
-    @IsEnum(StatusTypes)
-    status: string[]
+    sort: "ASC" | "DESC" | -1 | 1 = "ASC";
 
-    @IsEnum(["ASC", "DESC"])
-    sort: "ASC" | "DESC"
+    constructor(query: any) {
+        if (query.text) {
+            this.text = query.text;
+        }
+        if (query.work_type) {
+            this.work_type = query.work_type.split();
+        }
+        if (query.status) {
+            const statuses = query.status.split();
+            for (let i = 0; i<statuses.length; i++) {
+                if (!Object.values(StatusTypes).includes(statuses[i])) {
+                    throw new BadRequestException(`The status query, ${statuses[i]} is not a valid status type.`)
+                }
+            }
+        }
+        if (query.sort) {
+            this.sort = query.sort;
+        }
+    }
     
 }
