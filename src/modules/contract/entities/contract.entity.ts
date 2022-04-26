@@ -1,7 +1,7 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
-import { IPostgresInterval } from 'postgres-interval';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { WorkType } from "../../work-type/entities/work-type.entity";
 import { Vendor } from "../../vendor/entities/vendor.entity";
+import { PaymentInfo } from "../../payment-info/entities/payment-info.entity";
 
 @Entity({name: 'contract'})
 export class Contract {
@@ -28,5 +28,8 @@ export class Contract {
 
     @ManyToOne(() => WorkType, (workType: WorkType) => workType.type)
     workType: WorkType
+
+    @OneToMany(() => PaymentInfo, (paymentInfo: PaymentInfo) => paymentInfo)
+    paymentInfo: PaymentInfo
 
 }

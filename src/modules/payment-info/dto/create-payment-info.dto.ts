@@ -1,4 +1,4 @@
-import { IsDate, IsDefined, IsInt, IsNotEmpty, IsPositive, IsString, IsUUID, Length } from "class-validator"
+import { IsDateString, IsDefined, IsInt, IsNotEmpty, IsPositive, IsString, Length } from "class-validator"
 
 export class CreatePaymentInfoDto {
 
@@ -13,16 +13,13 @@ export class CreatePaymentInfoDto {
     @IsNotEmpty()
     check_number: string
 
-    @IsDate()
+    @IsDateString()
     @IsDefined()
     current_date: Date
 
     @IsString()
     @IsNotEmpty()
+    @IsDefined()
     memo: string
 
-    @IsUUID()
-    @IsNotEmpty()
-    @IsDefined()
-    contract_id: string
 }

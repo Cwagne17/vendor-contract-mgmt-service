@@ -3,7 +3,6 @@ import { ContractService } from './contract.service';
 import { ContractController } from './contract.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Contract } from './entities/contract.entity';
-import { VendorService } from '../vendor/vendor.service';
 import { VendorModule } from '../vendor/vendor.module';
 
 @Module({
@@ -12,6 +11,7 @@ import { VendorModule } from '../vendor/vendor.module';
     VendorModule
   ],
   controllers: [ContractController],
-  providers: [ContractService]
+  providers: [ContractService],
+  exports: [ContractService]
 })
 export class ContractModule {}

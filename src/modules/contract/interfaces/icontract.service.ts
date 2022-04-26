@@ -1,5 +1,5 @@
 import { CreateContractDto } from "../dto/create-contract.dto";
-import { SearchContractDto } from "../dto/search-contract.dto";
+import { SearchContractsDto } from "../dto/search-contract.dto";
 import { UpdateContractDto } from "../dto/update-contract.dto";
 import { Contract } from "../entities/contract.entity";
 
@@ -18,7 +18,7 @@ export interface IContractService {
       * 
       * @param query - Request Query validated by the SearchVendorsDto class
       */
-     searchContracts(query: SearchContractDto): Promise<Contract[]>;
+     searchContracts(query: SearchContractsDto): Promise<Contract[]>;
  
      /**
       * Function to update an existing contract in the database
@@ -46,10 +46,16 @@ export interface IContractService {
      downloadContract(vendorId: string, id: string): Promise<void>;
     
      /**
+      * 
+      * @param id - Request Param contractId
+      */
+     findContractById(id: string): Promise<Contract>;
+
+     /**
       * Function to find a vendor's contract on a given date
       * 
       * @param vendorId - Request Param vendorId
       * @param date - date a contract was created
       */
-     findVendorContractByDate(vendorId: string, date: Date): Promise<Contract>
+     findContractByDate(vendorId: string, date: Date): Promise<Contract>
 }

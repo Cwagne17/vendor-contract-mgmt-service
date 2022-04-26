@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable, InternalServerErrorException, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ILike, In, Like, Repository } from 'typeorm';
+import { In, Like, Repository } from 'typeorm';
 import { StatusTypes } from '../vendor/entities/vendor.entity';
 import { VendorService } from '../vendor/vendor.service';
 import { CreateContractDto } from './dto/create-contract.dto';
@@ -24,7 +24,7 @@ export class ContractService implements IContractService{
     if (vendor.status !== StatusTypes.ACTIVE) {
       throw new BadRequestException(`Bad Request, the vendor a contract is being made for is not in an Active status.`);
     }
-    const contract = await this.findVendorContractByDate(vendorId, createContractDto.contract_date);
+    const contract = await this.findContractByDate(vendorId, createContractDto.contract_date);
     if (contract) {
       throw new BadRequestException(`Bad Request, the Vendor has a contract already for the date ${createContractDto.contract_date}.`);
     }
@@ -70,8 +70,13 @@ export class ContractService implements IContractService{
 
   async deleteContract(vendorId: string, id: string): Promise<void> {
     const vendor = await this.vendorService.findVendorById(vendorId);
+    console.log(vendor);
     if (!vendor) {
       throw new NotFoundException(`Not Found, the vendor with the id ${vendorId}, does not exist.`);
+    }
+    const contract = await this.findContractById(id);
+    if (!contract) {
+      throw new NotFoundException(`Not Found, the contract with the id ${id}, does not exist.`);
     }
     await this.contractRepo.delete(id);
   }
@@ -80,7 +85,16 @@ export class ContractService implements IContractService{
     throw new Error('Method not implemented.');
   }
 
-  async findVendorContractByDate(vendorId: string, date: Date): Promise<Contract> {
+  async findContractById(id: string): Promise<Contract> {
+    return await this.contractRepo.findOne({
+      relations: ["vendor", "workType"],
+      where: {
+        id: id
+      }
+    });
+  }
+
+  async findContractByDate(vendorId: string, date: Date): Promise<Contract> {
     return await this.contractRepo.findOne({
       relations: ["vendor", "workType"],
       where: { 

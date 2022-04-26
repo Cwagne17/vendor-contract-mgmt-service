@@ -1,5 +1,5 @@
 import { CreateContractDto } from "../dto/create-contract.dto";
-import { SearchContractDto } from "../dto/search-contract.dto";
+import { SearchContractsDto } from "../dto/search-contract.dto";
 import { UpdateContractDto } from "../dto/update-contract.dto";
 import { Contract } from "../entities/contract.entity";
 
@@ -18,7 +18,7 @@ export interface IContractController {
      * 
      * @param query - Request Query validated by the SearchVendorsDto class
      */
-    searchContracts(query: SearchContractDto): Promise<Contract[]>;
+    searchContracts(query: SearchContractsDto): Promise<Contract[]>;
 
     /**
      * PATCH request function to update an existing contract in the database
