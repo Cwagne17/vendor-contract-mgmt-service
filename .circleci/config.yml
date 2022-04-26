@@ -39,7 +39,7 @@ jobs:
             fi
   
   deploy-digitalocean:
-    executor: do-cli/digitalocean
+    executor: do-cli/default
     steps:
       - do-cli/install
       - do-cli/initialize:
