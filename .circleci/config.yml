@@ -75,6 +75,7 @@ workflows:
               only: /main/
 
       - docker/publish:
+          name: publish-docker-prod
           context:
             - DOCKERHUB
           image: "0717080/$CIRCLE_PROJECT_REPONAME"
@@ -84,6 +85,8 @@ workflows:
               only: /main/
 
       - deploy-digitalocean:
+          requires:
+            - publish-docker-prod
           filters:
             branches:
               only: /main/
