@@ -36,11 +36,12 @@ WORKDIR /usr/src/app
 
 COPY --chown=node:node --from=build /usr/src/app/dist/ /usr/src/app/dist/
 COPY --chown=node:node --from=build /usr/src/app/node_modules /usr/src/app/node_modules
+COPY --chown=node:node --from=build /usr/src/app/package.json /usr/src/app/package.json
 
 RUN chmod -w /usr/src/app
 
 USER node
 
-CMD ["dumb-init", "node", "-r", "dist/main"]
+CMD ["dumb-init", "node", "-r", "./dist/main.js"]
 
 EXPOSE 3000
