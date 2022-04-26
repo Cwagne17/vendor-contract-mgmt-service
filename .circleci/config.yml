@@ -84,6 +84,8 @@ workflows:
               only: /main/
 
       - deploy-digitalocean:
+          requires:
+            - docker/publish
           filters:
             branches:
               only: /main/
