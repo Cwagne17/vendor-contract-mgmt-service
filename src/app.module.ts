@@ -5,6 +5,7 @@ import { WorkTypeModule } from './modules/work-type/work-type.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { configService } from './config/config.service';
 import { PaymentInfoModule } from './modules/payment-info/payment-info.module';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -14,7 +15,7 @@ import { PaymentInfoModule } from './modules/payment-info/payment-info.module';
     PaymentInfoModule,
     TypeOrmModule.forRoot(configService.getTypeOrmConfig())
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule {}
