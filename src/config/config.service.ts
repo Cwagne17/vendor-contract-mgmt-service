@@ -30,6 +30,10 @@ export class ConfigService {
     return this;
   }
 
+  public getJWTSecret() {
+    return this.getValue('SECRET_KEY', true);
+  }
+
   /**
    * 
    * @returns the PORT environment variable
@@ -96,6 +100,7 @@ const configService = new ConfigService(process.env)
     'POSTGRES_USER',
     'POSTGRES_PASSWORD',
     'POSTGRES_DATABASE',
-    'PORT'
+    'PORT',
+    'SECRET_KEY'
   ]);
 export { configService };
