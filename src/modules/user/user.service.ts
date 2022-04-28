@@ -11,7 +11,7 @@ export class UserService implements IUserService {
     async findUserRole(id: string, username: string): Promise<Partial<User>> {
         /**
          * 
-         * SELECT roles 
+         * SELECT id, role
          * FROM 'user'
          * WHERE 
          *  user.username = {username}
@@ -19,10 +19,9 @@ export class UserService implements IUserService {
          * 
          */
         return await this.userRepo.findOne({
-            select: ["role"],
+            select: ["id", "role"],
             where: {
-                id: id,
-                username: username 
+                id: id
             }
         });
     }
