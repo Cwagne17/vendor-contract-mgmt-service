@@ -30,13 +30,13 @@ export class RolesGuard implements CanActivate {
       }
 
       // Gets user from database
-      const user_entity: Partial<User> = await this.userService.findUser(user.userId, user.username);
+      const user_entity: Partial<User> = await this.userService.findUserRole(user.userId, user.username);
       if(!user_entity) {
         throw new NotFoundException(`Not Found, the user with the username ${user.username}, does not exist.`);
       }
 
       // Throws excpetion if not some of roles exist on user
-      if(!requiredRoles.some((role: UserRole) => user_entity.roles?.includes(role))) {
+      if(!requiredRoles.includes(user_entity.role as UserRole)) {
         throw new ForbiddenException(`Forbidden, the user with the username ${user.username} does not have role(s) ${requiredRoles.join(', ')}`);
       }
     }

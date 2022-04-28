@@ -24,6 +24,6 @@ export class User {
         length: 45,
         nullable: true
     })
-    roles: string;
+    role: string;
 
 }

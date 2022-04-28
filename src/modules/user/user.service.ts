@@ -8,10 +8,10 @@ import { IUserService } from './interfaces/iuser.service';
 export class UserService implements IUserService {
     constructor(@InjectRepository(User) private readonly userRepo: Repository<User>) {}
 
-    async findUser(id: string, username: string): Promise<Partial<User>> {
+    async findUserRole(id: string, username: string): Promise<Partial<User>> {
         /**
          * 
-         * SELECT id, username, password, roles 
+         * SELECT roles 
          * FROM 'user'
          * WHERE 
          *  user.username = {username}
@@ -19,7 +19,7 @@ export class UserService implements IUserService {
          * 
          */
         return await this.userRepo.findOne({
-            select: ["id", "username", "password", "roles"],
+            select: ["role"],
             where: {
                 id: id,
                 username: username 
