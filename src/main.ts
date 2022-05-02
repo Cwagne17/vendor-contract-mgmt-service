@@ -17,6 +17,7 @@ async function bootstrap() {
     whitelist: true 
   }));
   app.useGlobalGuards(new JwtAuthGuard());
+  app.enableCors();
   await app.listen(configService.getPort());
 }
 bootstrap();

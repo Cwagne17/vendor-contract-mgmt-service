@@ -1,4 +1,3 @@
-import { IsDate, IsDefined, IsInt, IsPositive, IsString, IsUUID, Length } from "class-validator";
 import { Contract } from "../../contract/entities/contract.entity";
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 

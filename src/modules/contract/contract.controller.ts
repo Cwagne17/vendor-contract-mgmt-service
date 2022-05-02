@@ -40,11 +40,4 @@ export class ContractController implements IContractController {
     await this.contractService.deleteContract(vendorId, id);
   }
 
-  @Get("/vendor/:vendorId/contract/:contractId/download")
-  @Roles(UserRole.ADMIN, UserRole.DIRECTOR)
-  @HttpCode(200)
-  async downloadContract(@Param("vendorId") vendorId: string, @Param("contractId") id: string): Promise<void> {
-    await this.contractService.downloadContract(vendorId, id);
-  }
-
 }

@@ -37,12 +37,4 @@ export interface IContractController {
      */
     deleteContract(vendorId: string, id: string): Promise<void>;
 
-    /**
-     * GET request function to download an existing contract storing its PDF in S3
-     * 
-     * @param vendorId - Request Param vendorId
-     * @param id - Request Param contractId
-     */
-    downloadContract(vendorId: string, id: string): Promise<void>;
-
 }

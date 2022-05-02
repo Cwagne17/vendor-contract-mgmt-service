@@ -8,7 +8,7 @@ import { IUserService } from './interfaces/iuser.service';
 export class UserService implements IUserService {
     constructor(@InjectRepository(User) private readonly userRepo: Repository<User>) {}
 
-    async findUserRole(id: string, username: string): Promise<Partial<User>> {
+    async findUserRole(id: string): Promise<Partial<User>> {
         /**
          * 
          * SELECT id, role

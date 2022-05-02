@@ -3,7 +3,6 @@ import { VendorService } from './vendor.service';
 import { VendorController } from './vendor.controller';
 import { Vendor } from './entities/vendor.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { WorkTypeService } from '../work-type/work-type.service';
 import { WorkTypeModule } from '../work-type/work-type.module';
 
 @Module({
