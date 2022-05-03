@@ -81,10 +81,6 @@ export class ContractService implements IContractService{
     await this.contractRepo.delete(id);
   }
 
-  async downloadContract(vendorId: string, id: string): Promise<void> {
-    throw new Error('Method not implemented.');
-  }
-
   async findContractById(id: string): Promise<Contract> {
     return await this.contractRepo.findOne({
       relations: ["vendor", "workType"],

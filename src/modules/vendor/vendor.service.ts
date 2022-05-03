@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ILike, In, Like, Repository } from 'typeorm';
+import { In, Like, Repository } from 'typeorm';
 import { WorkTypeService } from '../work-type/work-type.service';
 import { CreateVendorDto } from './dto/create-vendor.dto';
 import { SearchVendorsDto } from './dto/search-vendors.dto';

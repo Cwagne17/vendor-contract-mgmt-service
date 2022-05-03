@@ -1,7 +1,5 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID, Length, Matches } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, Length, Matches } from 'class-validator';
 import { PhoneRegexp, StatusTypes } from '../entities/vendor.entity';
-import { CreateVendorDto } from './create-vendor.dto';
 
 export class UpdateVendorDto {
 

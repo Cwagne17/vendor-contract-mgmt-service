@@ -6,6 +6,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { configService } from './config/config.service';
 import { PaymentInfoModule } from './modules/payment-info/payment-info.module';
 import { AppController } from './app.controller';
+import { AuthModule } from './modules/auth/auth.module';
+import { UserModule } from './modules/user/user.module';
 
 @Module({
   imports: [
@@ -13,6 +15,8 @@ import { AppController } from './app.controller';
     ContractModule,
     WorkTypeModule,
     PaymentInfoModule,
+    AuthModule,
+    UserModule,
     TypeOrmModule.forRoot(configService.getTypeOrmConfig())
   ],
   controllers: [AppController],
