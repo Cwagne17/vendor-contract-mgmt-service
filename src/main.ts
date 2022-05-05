@@ -7,7 +7,7 @@ import { configService } from './config/config.service';
 import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: { origin: true, credentials: true }});
   if(!configService.isProduction()) {
     const document = SwaggerModule.createDocument(app, configService.getSwaggerConfig())
     SwaggerModule.setup('docs', app, document);
@@ -17,7 +17,6 @@ async function bootstrap() {
     whitelist: true 
   }));
   app.useGlobalGuards(new JwtAuthGuard());
-  app.enableCors();
   await app.listen(configService.getPort());
 }
 bootstrap();
