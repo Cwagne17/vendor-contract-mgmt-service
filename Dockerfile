@@ -42,6 +42,6 @@ RUN chmod -w /usr/src/app
 
 USER node
 
-CMD ["dumb-init", "node", "-r", "dist/main"]
+CMD ["dumb-init", "node", "-r", "./dist/main"]
 
 EXPOSE 3000
