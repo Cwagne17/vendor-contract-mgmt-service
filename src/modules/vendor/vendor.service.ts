@@ -1,6 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { In, Like, Repository } from 'typeorm';
+import { CreateWorkTypeDto } from '../work-type/dto/create-work-type.dto';
 import { WorkTypeService } from '../work-type/work-type.service';
 import { CreateVendorDto } from './dto/create-vendor.dto';
 import { SearchVendorsDto } from './dto/search-vendors.dto';
@@ -20,9 +21,10 @@ export class VendorService implements IVendorService {
     if (vendor) {
       throw new BadRequestException(`Bad Request, Vendor with the name ${createVendorDto.vendor_name} already exists.`);
     }
-    const workType = await this.workTypeService.findWorkTypeById(createVendorDto.work_id);
+    let workType = await this.workTypeService.findWorkTypeByType(createVendorDto.workType)
     if (!workType) {
-      throw new NotFoundException(`Not Found, the work type with the id ${createVendorDto.work_id}, does not exist.`);
+      await this.workTypeService.createWorkType({ type: createVendorDto.workType } as CreateWorkTypeDto);
+      workType = await this.workTypeService.findWorkTypeByType(createVendorDto.workType);
     }
     const vendor_entity = await this.vendorRepo.create({
       ...createVendorDto,

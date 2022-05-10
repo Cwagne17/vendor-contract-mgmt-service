@@ -50,8 +50,7 @@ export class CreateVendorDto {
 
     @IsDefined()
     @IsNotEmpty()
-    @IsUUID()
     @IsString()
-    work_id: string
+    workType: string
     
 }
