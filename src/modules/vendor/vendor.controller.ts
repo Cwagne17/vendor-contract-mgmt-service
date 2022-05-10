@@ -18,6 +18,13 @@ export class VendorController implements IVendorController {
     await this.vendorService.createVendor(createVendorDto);
   }
 
+  @Get("/vendor/:vendorId")
+  @Roles(UserRole.ADMIN, UserRole.DIRECTOR)
+  @HttpCode(200)
+  async getVendor(@Param("vendorId") id: string): Promise<Vendor> {
+    return await this.vendorService.findVendorById(id);
+  }
+
   @Get("/vendors")
   @Roles(UserRole.ADMIN, UserRole.DIRECTOR)
   @HttpCode(200)
@@ -29,7 +36,6 @@ export class VendorController implements IVendorController {
   @Roles(UserRole.ADMIN)
   @HttpCode(204)
   async updateVendor(@Param('vendorId') id: string, @Body() updateVendorDto: UpdateVendorDto): Promise<void> {
-    console.log(updateVendorDto);
     await this.vendorService.updateVendor(id, updateVendorDto);
   }
 

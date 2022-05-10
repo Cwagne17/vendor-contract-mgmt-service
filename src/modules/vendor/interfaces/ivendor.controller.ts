@@ -12,6 +12,8 @@ export interface IVendorController {
      */
     createVendor(createVendorDto: CreateVendorDto): Promise<void>;
 
+    getVendor(id: string): Promise<Vendor>;
+
     /**
      * GET request function to get many vendors associated to a given query
      * 
