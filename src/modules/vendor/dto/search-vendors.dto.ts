@@ -12,6 +12,8 @@ export class SearchVendorsDto {
     sort: "ASC" | "DESC" | -1 | 1 = "ASC";
 
     constructor(query: any) {
+        console.log(query);
+        console.log(typeof query.work_type)
         if (query.text) {
             this.text = query.text;
         }
@@ -19,6 +21,7 @@ export class SearchVendorsDto {
             this.work_type = query.work_type.split();
         }
         if (query.status) {
+
             const statuses = query.status.split();
             for (let i = 0; i<statuses.length; i++) {
                 if (!Object.values(StatusTypes).includes(statuses[i])) {
