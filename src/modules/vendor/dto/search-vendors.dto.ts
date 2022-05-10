@@ -12,22 +12,20 @@ export class SearchVendorsDto {
     sort: "ASC" | "DESC" | -1 | 1 = "ASC";
 
     constructor(query: any) {
-        console.log(query);
-        console.log(typeof query.work_type)
         if (query.text) {
             this.text = query.text;
         }
         if (query.work_type) {
-            this.work_type = query.work_type.split();
+            this.work_type = query.work_type;
         }
         if (query.status) {
-
-            const statuses = query.status.split();
-            for (let i = 0; i<statuses.length; i++) {
+            const statuses = query.status;
+            for (let i = 0; i<query.status.length; i++) {
                 if (!Object.values(StatusTypes).includes(statuses[i])) {
                     throw new BadRequestException(`The status query, ${statuses[i]} is not a valid status type.`)
                 }
             }
+            this.status = query.status;
         }
         if (query.sort) {
             this.sort = query.sort;
