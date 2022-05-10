@@ -14,7 +14,7 @@ async function bootstrap() {
   }
   app.use(helmet());
   app.enableCors({
-    origin: /https?:\/\/(([^/]+\.)?example\.com)$/i
+    origin: /https?:.*$/i
   })
   app.useGlobalPipes(new ValidationPipe({ 
     whitelist: true 
