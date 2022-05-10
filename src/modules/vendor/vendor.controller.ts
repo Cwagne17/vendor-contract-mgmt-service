@@ -18,7 +18,7 @@ export class VendorController implements IVendorController {
     await this.vendorService.createVendor(createVendorDto);
   }
 
-  @Get("/vendor/:vendorId")
+  @Get("/vendor/:vendorName")
   @Roles(UserRole.ADMIN, UserRole.DIRECTOR)
   @HttpCode(200)
   async getVendorByName(@Param("vendorName") name: string): Promise<Vendor> {
