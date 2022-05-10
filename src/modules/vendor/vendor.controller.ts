@@ -21,8 +21,8 @@ export class VendorController implements IVendorController {
   @Get("/vendor/:vendorId")
   @Roles(UserRole.ADMIN, UserRole.DIRECTOR)
   @HttpCode(200)
-  async getVendor(@Param("vendorId") id: string): Promise<Vendor> {
-    return await this.vendorService.findVendorById(id);
+  async getVendorByName(@Param("vendorName") name: string): Promise<Vendor> {
+    return await this.vendorService.findVendorByName(name);
   }
 
   @Get("/vendors")
