@@ -16,16 +16,19 @@ export class SearchVendorsDto {
             this.text = query.text;
         }
         if (query.work_type) {
-            this.work_type = query.work_type;
+            this.work_type = typeof(query.work_type) == "string" ? [query.work_type] : query.work_type;
         }
         if (query.status) {
-            const statuses = query.status;
-            for (let i = 0; i<query.status.length; i++) {
+            let statuses = query.status;
+            if (typeof(query.status) == "string") {
+                statuses = [query.status];
+            }
+            for (let i = 0; i<statuses.length; i++) {
                 if (!Object.values(StatusTypes).includes(statuses[i])) {
                     throw new BadRequestException(`The status query, ${statuses[i]} is not a valid status type.`)
                 }
             }
-            this.status = query.status;
+            this.status = statuses;
         }
         if (query.sort) {
             this.sort = query.sort;

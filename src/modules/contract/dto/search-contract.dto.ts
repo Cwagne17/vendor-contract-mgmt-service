@@ -11,7 +11,7 @@ export class SearchContractsDto {
             this.text = query.text;
         }
         if (query.work_type) {
-            this.work_type = query.work_type;
+            this.work_type = typeof(query.work_type) == "string" ? [query.work_type] : query.work_type;
         }
         if (query.sort && ["ASC", "DESC", -1, 1].includes(query.sort)) {
             this.sort = query.sort;
