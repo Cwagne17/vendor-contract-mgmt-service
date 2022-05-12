@@ -47,7 +47,7 @@ export class ContractService implements IContractService{
     const workTypeQuery = query.work_type ? { workType: { type: In(query.work_type) } } : {};
 
     return await this.contractRepo.find({
-      relations: ["vendor", "workType"],
+      relations: ["vendor", "workType", "paymentInfo"],
       where: {
         vendor: {
           vendor_name: Like(`%${query.text}%`)
@@ -83,7 +83,7 @@ export class ContractService implements IContractService{
 
   async findContractById(id: string): Promise<Contract> {
     return await this.contractRepo.findOne({
-      relations: ["vendor", "workType"],
+      relations: ["vendor", "workType", "paymentInfo"],
       where: {
         id: id
       }
@@ -92,7 +92,7 @@ export class ContractService implements IContractService{
 
   async findContractByDate(vendorId: string, date: Date): Promise<Contract> {
     return await this.contractRepo.findOne({
-      relations: ["vendor", "workType"],
+      relations: ["vendor", "workType", "paymentInfo"],
       where: { 
         contract_date: date,
         vendor: {

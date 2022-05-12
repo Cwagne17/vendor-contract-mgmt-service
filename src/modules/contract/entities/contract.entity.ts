@@ -29,7 +29,7 @@ export class Contract {
     @ManyToOne(() => WorkType, (workType: WorkType) => workType.type)
     workType: WorkType
 
-    @OneToMany(() => PaymentInfo, (paymentInfo: PaymentInfo) => paymentInfo)
-    paymentInfo: PaymentInfo
+    @OneToMany(() => PaymentInfo, (paymentInfo: PaymentInfo) => paymentInfo.contract)
+    paymentInfo: PaymentInfo[]
 
 }

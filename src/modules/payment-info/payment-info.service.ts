@@ -64,7 +64,7 @@ export class PaymentInfoService implements IPaymentInfoService {
     if (!contract) {
       throw new NotFoundException(`Not Found, the contract with the id ${contractId}, does not exist.`);
     }
-    const payment_info = await this.findPaymentByCheckNumber(id);
+    const payment_info = await this.findPaymentById(id);
     if (!payment_info) {
       throw new NotFoundException(`Not Found, payment info with the id ${id}, does not exist.`);
     }
@@ -80,7 +80,7 @@ export class PaymentInfoService implements IPaymentInfoService {
     if (!contract) {
       throw new NotFoundException(`Not Found, the contract with the id ${contractId}, does not exist.`);
     }
-    const payment_info = await this.findPaymentByCheckNumber(id);
+    const payment_info = await this.findPaymentById(id);
     if (!payment_info) {
       throw new NotFoundException(`Not Found, payment info with the id ${id}, does not exist.`);
     }
