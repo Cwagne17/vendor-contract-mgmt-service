@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Query, HttpCode } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Query, HttpCode, NotFoundException } from '@nestjs/common';
 import { VendorService } from './vendor.service';
 import { CreateVendorDto } from './dto/create-vendor.dto';
 import { UpdateVendorDto } from './dto/update-vendor.dto';
@@ -18,6 +18,17 @@ export class VendorController implements IVendorController {
     await this.vendorService.createVendor(createVendorDto);
   }
 
+  @Get("/vendor/:vendorName")
+  @Roles(UserRole.ADMIN, UserRole.DIRECTOR)
+  @HttpCode(200)
+  async getVendorByName(@Param("vendorName") name: string): Promise<Vendor> {
+    const vendor = await this.vendorService.findVendorByName(name);
+    if (!vendor) {
+      throw new NotFoundException(`Not Found, the vendor with the name ${name} does not exist.`);
+    }
+    return vendor;
+  }
+
   @Get("/vendors")
   @Roles(UserRole.ADMIN, UserRole.DIRECTOR)
   @HttpCode(200)
@@ -29,7 +40,6 @@ export class VendorController implements IVendorController {
   @Roles(UserRole.ADMIN)
   @HttpCode(204)
   async updateVendor(@Param('vendorId') id: string, @Body() updateVendorDto: UpdateVendorDto): Promise<void> {
-    console.log(updateVendorDto);
     await this.vendorService.updateVendor(id, updateVendorDto);
   }
 
