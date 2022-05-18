@@ -22,7 +22,7 @@ RUN npm install
 # Serve Stage
 # ----------------------------------------------------------------
 
-FROM node:16-alpine3.11
+FROM node:17.9.0-buster-slim
 
 RUN apk add dumb-init
 
