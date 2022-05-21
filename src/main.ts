@@ -4,7 +4,7 @@ import { SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
 import { configService } from './config/config.service';
-import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
+// import { JwtAuthGuard } from './modules/auth/guards/jwt-auth.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,7 +19,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ 
     whitelist: true 
   }));
-  app.useGlobalGuards(new JwtAuthGuard());
+  // app.useGlobalGuards(new JwtAuthGuard());
   await app.listen(configService.getPort());
 }
 bootstrap();

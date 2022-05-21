@@ -12,14 +12,14 @@ export class VendorController implements IVendorController {
   constructor(private readonly vendorService: VendorService) {}
 
   @Post("/vendor")
-  @Roles(UserRole.ADMIN)
+  //@Roles(UserRole.ADMIN)
   @HttpCode(201)
   async createVendor(@Body() createVendorDto: CreateVendorDto): Promise<void> {
     await this.vendorService.createVendor(createVendorDto);
   }
 
   @Get("/vendor/:vendorName")
-  @Roles(UserRole.ADMIN, UserRole.DIRECTOR)
+  //@Roles(UserRole.ADMIN, UserRole.DIRECTOR)
   @HttpCode(200)
   async getVendorByName(@Param("vendorName") name: string): Promise<Vendor> {
     const vendor = await this.vendorService.findVendorByName(name);
@@ -30,14 +30,14 @@ export class VendorController implements IVendorController {
   }
 
   @Get("/vendors")
-  @Roles(UserRole.ADMIN, UserRole.DIRECTOR)
+  //@Roles(UserRole.ADMIN, UserRole.DIRECTOR)
   @HttpCode(200)
   async searchVendors(@Query() query): Promise<Vendor[]> {
     return await this.vendorService.searchVendors(new SearchVendorsDto(query));
   }
 
   @Patch('/vendor/:vendorId')
-  @Roles(UserRole.ADMIN)
+  //@Roles(UserRole.ADMIN)
   @HttpCode(204)
   async updateVendor(@Param('vendorId') id: string, @Body() updateVendorDto: UpdateVendorDto): Promise<void> {
     await this.vendorService.updateVendor(id, updateVendorDto);
