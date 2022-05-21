@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
 import { JwtStrategy } from './strategy/jwt.strategy';
 import { PassportModule } from '@nestjs/passport';
-import { APP_GUARD } from '@nestjs/core';
-import { JwtAuthGuard } from './guards/jwt-auth.guard';
+// import { APP_GUARD } from '@nestjs/core';
+// import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { UserModule } from '../user/user.module';
-import { RolesGuard } from './guards/roles.guard';
+// import { RolesGuard } from './guards/roles.guard';
 
 @Module({
     imports: [
@@ -13,14 +13,14 @@ import { RolesGuard } from './guards/roles.guard';
     ],
     providers: [
         JwtStrategy,
-        {
-            provide: APP_GUARD,
-            useClass: JwtAuthGuard,
-        },
-        {
-            provide: APP_GUARD,
-            useClass: RolesGuard,
-        }
+        // {
+        //     provide: APP_GUARD,
+        //     useClass: JwtAuthGuard,
+        // },
+        // {
+        //     provide: APP_GUARD,
+        //     useClass: RolesGuard,
+        // }
     ],
     exports: []
 })
